@@ -56,7 +56,7 @@ function importBibtex() {
   let count = 0;
   parsed.forEach(entry => {
     const tags = entry.entryTags;
-    
+
     // Basic validation
     if (!tags.title || !tags.year) {
       console.warn(`Skipping entry ${entry.citationKey}: Missing title or year.`);
@@ -66,7 +66,7 @@ function importBibtex() {
     const entryType = (entry.entryType || '').toLowerCase();
     const isBook = entryType === 'book';
     const OUTPUT_DIR = isBook ? BOOKS_DIR : PUBLICATIONS_DIR;
-    
+
     let type = isBook ? 'book' : 'paper';
     if (!isBook) {
       if (entryType === 'patent') {
@@ -86,11 +86,11 @@ function importBibtex() {
     // For books, publisher is often the venue equivalent
     const venue = cleanString(tags.booktitle || tags.journal || tags.school || tags.publisher || tags.howpublished || tags.organization || tags.institution || 'Unknown Venue');
     const description = cleanString(tags.abstract || `Published in ${venue}.`);
-    
+
     // Extract additional fields
     // Cover image: check 'cover', 'image', 'figure'
     let cover = cleanString(tags.cover || tags.image || tags.figure || '');
-    const DEFAULT_COVER = '../../assets/paper-vision.jpg';
+    const DEFAULT_COVER = '../../assets/placeholder.png';
 
     // Validate cover image existence
     if (cover) {
@@ -98,7 +98,7 @@ function importBibtex() {
       // ../../assets/xxx.jpg -> src/assets/xxx.jpg
       const relativeToRoot = cover.replace('../../', 'src/');
       const absolutePath = path.join(process.cwd(), relativeToRoot);
-      
+
       if (!fs.existsSync(absolutePath)) {
         console.warn(`Warning: Cover image not found at ${absolutePath}. Using default.`);
         cover = DEFAULT_COVER;
@@ -106,7 +106,7 @@ function importBibtex() {
     } else {
       cover = DEFAULT_COVER;
     }
-    
+
     // PDF link
     let pdf = cleanString(tags.pdf || tags.file || tags.url || '');
     if (pdf.startsWith(':')) {
@@ -115,7 +115,7 @@ function importBibtex() {
         pdf = parts[1];
       }
     }
-    
+
     const code = cleanString(tags.code || tags.code_url || tags.github || tags.repository || '');
     const website = cleanString(tags.website || tags.webpage || tags.project || '');
     const slides = cleanString(tags.slides || tags.presentation || tags.ppt || '');
@@ -130,17 +130,17 @@ function importBibtex() {
     }
 
     const doi = cleanString(tags.doi || '');
-    
+
     const note = cleanString(tags.note || tags.keywords || '');
 
     if (note.toLowerCase().includes('best paper') && !award.toLowerCase().includes('best paper')) {
-       badges.push({ text: 'Best Paper', type: 'gold' });
+      badges.push({ text: 'Best Paper', type: 'gold' });
     }
     if (note.toLowerCase().includes('oral')) {
-       badges.push({ text: 'Oral', type: 'blue' });
+      badges.push({ text: 'Oral', type: 'blue' });
     }
     if (note.toLowerCase().includes('spotlight')) {
-       badges.push({ text: 'Spotlight', type: 'red' });
+      badges.push({ text: 'Spotlight', type: 'red' });
     }
     if (note.toLowerCase().includes('best student paper')) {
       badges.push({ text: 'Best Student Paper', type: 'gold' });
@@ -168,7 +168,7 @@ function importBibtex() {
         console.warn(`Warning: Could not read existing file ${filePath}`);
       }
     }
-    
+
     const frontmatter = [
       '---',
       `title: "${title.replace(/"/g, '\\"')}"`,
