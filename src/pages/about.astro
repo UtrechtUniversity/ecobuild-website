@@ -1,51 +1,139 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { SITE } from '../config';
+import Layout from "../layouts/Layout.astro";
+import { SITE } from "../config";
 ---
 
 <Layout title="About">
   <section class="max-w-4xl mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold mb-6">About {SITE.labName}</h1>
-    
-    <div class="prose prose-lg max-w-none mb-12">
-      <h2 class="text-2xl font-semibold mt-8 mb-4">Our Mission</h2>
-      <p>
-        {SITE.labName} is dedicated to advancing research in sustainable building design and technology. 
-        We leverage data-driven approaches and innovative methodologies to create solutions that benefit 
-        both the environment and society.
+    <h1 class="text-4xl font-bold mb-6">About This Project</h1>
+
+    <div class="prose prose-lg max-w-none mb-12 text-gray-700">
+      <p class="lead text-xl text-gray-600 mb-8">
+        This project aims to develop the largest evidence-based, open-access and
+        open-source information platform focusing on ecological benefits of
+        design strategies. The platform will link existing building design
+        solutions to their measured benefits, represented as ecosystem services
+        (ESs), and so empower users to take informed decisions for the
+        development of regenerative buildings.
       </p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4">Who We Are</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">
+        Project Overview
+      </h2>
       <p>
-        Our team consists of passionate researchers, engineers, and students working across multiple 
-        disciplines. We collaborate with leading institutions and industry partners to translate cutting-edge 
-        research into practical applications.
+        Urban areas face pressing environmental challenges, including
+        biodiversity loss, climate change, and unsustainable resource
+        consumption. The building sector contributes significantly, accounting
+        for 40% of natural resources and over 30% of global energy consumption,
+        but also holds transformative potential. When designed with nature-based
+        solutions (NbS), buildings can actively regenerate ecosystems by
+        delivering ESs such as temperature regulation, air and water
+        purification, and enhanced biodiversity.
+      </p>
+      <p>
+        Despite growing interest in sustainable design, empirical data linking
+        design strategies to measurable ecological outcomes remain fragmented,
+        inaccessible, and geographically limited. Professionals lack a
+        centralized, trusted platform to guide ecologically informed decisions.
+        This platform addresses this gap by unifying disparate data sources into
+        a coherent, science-driven system, linking building and urban design
+        strategies to proven ecological outcomes. It will accelerate urban
+        sustainability transitions and help meet international targets.
       </p>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4">Research Focus</h2>
-      <p>
-        We focus on several key research areas:
-      </p>
-      <ul class="list-disc list-inside space-y-2">
-        <li><strong>Sustainable Building Design:</strong> Developing eco-friendly construction methodologies and materials.</li>
-        <li><strong>Energy Efficiency:</strong> Creating solutions to minimize energy consumption in buildings.</li>
-        <li><strong>Smart Technologies:</strong> Integrating IoT and AI for intelligent building management.</li>
-        <li><strong>Environmental Impact:</strong> Assessing and reducing the carbon footprint of construction projects.</li>
-      </ul>
+      <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">
+        Project Phases
+      </h2>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4">Our Values</h2>
-      <ul class="list-disc list-inside space-y-2">
-        <li><strong>Innovation:</strong> We push boundaries and explore new frontiers in sustainable technology.</li>
-        <li><strong>Collaboration:</strong> We work with partners worldwide to amplify our impact.</li>
-        <li><strong>Transparency:</strong> We share our findings openly and contribute to the scientific community.</li>
-        <li><strong>Sustainability:</strong> Environmental responsibility guides all our decisions.</li>
-      </ul>
+      <div class="bg-blue-50 p-6 rounded-2xl mb-8 border border-blue-100">
+        <h3 class="text-xl font-bold text-blue-900 mb-3">
+          Level 1: Research & Discovery
+        </h3>
+        <ul class="list-disc list-inside space-y-2 text-blue-800">
+          <li>
+            <strong>Workshops and focus groups:</strong> Utilizing real campus redevelopment
+            cases to identify user needs and structural requirements.
+          </li>
+          <li>
+            <strong>User interviews and surveys:</strong> Exploring functional building
+            demands and challenges with architects, designers, and sustainability
+            managers.
+          </li>
+        </ul>
+      </div>
 
-      <h2 class="text-2xl font-semibold mt-8 mb-4">Get In Touch</h2>
+      <div class="bg-green-50 p-6 rounded-2xl mb-8 border border-green-100">
+        <h3 class="text-xl font-bold text-green-900 mb-3">
+          Level 2: Development
+        </h3>
+        <ul class="list-disc list-inside space-y-2 text-green-800">
+          <li>
+            <strong>Value proposition:</strong> Prioritizing key ecosystem services
+            for initial prototyping.
+          </li>
+          <li>
+            <strong>Platform development:</strong> Unifying data using AI and knowledge
+            graphs to link design strategies with ecological impacts.
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-purple-50 p-6 rounded-2xl mb-8 border border-purple-100">
+        <h3 class="text-xl font-bold text-purple-900 mb-3">Level 3: Testing</h3>
+        <p class="text-purple-800">
+          Pilot testing with internal and external partners to ensure usability
+          and scientific validity, starting with the UU Campus & Facilities
+          team.
+        </p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">
+        Platform Improvement and Scaling
+      </h2>
       <p>
-        Interested in learning more about our work or potential collaborations? 
-        <a href="/contact" class="text-blue-600 hover:underline">Contact us</a> to get in touch with our team.
+        Following successful pilots, the platform will expand in scope and
+        functionality. New data layers, ESs, and design strategies will be
+        added, increasing reach and impact. The project seeks to create a shared
+        language between computational, ecological, building, and
+        socio-political fields of expertise, supporting ecologically beneficial
+        designs while addressing risks and opportunities.
       </p>
+
+      <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">
+        Collaborations
+      </h2>
+      <p>
+        Significant effort was devoted to building a diverse and committed
+        consortium.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8 mt-6">
+        <div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">
+            Internal Collaborators (UU)
+          </h3>
+          <ul class="list-disc list-inside space-y-1 text-gray-600">
+            <li>Harm van den Heiligenberg</li>
+            <li>Helen Toxopeus</li>
+            <li>Geertje Speelman</li>
+            <li>Karin Rebel</li>
+            <li>Ernst Worrell</li>
+            <li>Jeroen Hutten (Sustainability Office)</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">
+            External Collaborators
+          </h3>
+          <ul class="list-disc list-inside space-y-1 text-gray-600">
+            <li>FIBREE: NGO (real estate and blockchain)</li>
+            <li>For Nature Construction: Sustainable design innovators</li>
+            <li>Maibritt Pedersen Zari (AUT): Ecosystem services expert</li>
+            <li>HovenHier (NL): Local re-greening initiative</li>
+            <li>TerraLupa (Spain)</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>

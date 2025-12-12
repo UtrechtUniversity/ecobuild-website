@@ -7,101 +7,51 @@ import { SITE } from "../config";
 <Layout title="Contact Us">
   <div class="max-w-4xl mx-auto px-4 py-12 sm:py-20">
     <div class="text-center mb-16">
-      <h1
-        class="text-4xl font-bold text-gray-900 mb-4"
-        data-i18n-key="join.title"
-      >
-        Reach Out
-      </h1>
-      <p
-        class="text-lg text-gray-600 max-w-2xl mx-auto"
-        data-i18n-key="join.subtitle"
-      >
-        Placeholder text <br />
-        We are always looking for motivated people to join our team. If you are interested
-        in our research areas, please contact us!
-      </p>
-    </div>
-
-    <div class="grid gap-8 md:grid-cols-3 mb-16">
-      <div
-        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
-      >
-        <div
-          class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4 text-blue-600"
-        >
-          <GraduationCap className="w-6 h-6" />
-        </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">PhD Students</h3>
-        <p class="text-gray-600 text-sm mb-4">
-          We are looking for researchers with strong mathematical background and
-          coding skills.
-        </p>
-        <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
-          <li>Strong math foundation</li>
-          <li>Proficient in Python/C++</li>
-          <li>Publication record is a plus</li>
-        </ul>
-      </div>
-
-      <div
-        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
-      >
-        <div
-          class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4 text-green-600"
-        >
-          <BookOpen className="w-6 h-6" />
-        </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Master Students</h3>
-        <p class="text-gray-600 text-sm mb-4">
-          Self-motivated master students who want to dive deep into research are
-          welcome.
-        </p>
-        <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
-          <li>Passion for research</li>
-          <li>Good programming skills</li>
-          <li>Commitment to projects</li>
-        </ul>
-      </div>
-
-      <div
-        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
-      >
-        <div
-          class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4 text-purple-600"
-        >
-          <Code className="w-6 h-6" />
-        </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Undergraduates</h3>
-        <p class="text-gray-600 text-sm mb-4">
-          Talented undergraduates can join us for research training and
-          internship.
-        </p>
-        <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
-          <li>Curiosity driven</li>
-          <li>Fast learner</li>
-          <li>Team player</li>
-        </ul>
-      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Reach Out</h1>
     </div>
 
     <div class="bg-gray-50 rounded-3xl p-8 sm:p-12 text-center">
-      <h2
-        class="text-2xl font-bold text-gray-900 mb-4"
-        data-i18n-key="join.howToApply"
-      >
-        How to Apply
-      </h2>
-      <p
-        class="text-gray-600 mb-8 max-w-2xl mx-auto"
-        data-i18n-key="join.applicationText"
-      >
-        Please send your CV, transcripts, and a brief statement of research
-        interests to our Principal Investigator. Make sure to include
-        "[Application]" in your email subject.
-      </p>
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
+      <div class="max-w-md mx-auto mb-8 text-left">
+        <div class="mb-4">
+          <label
+            for="contact-name"
+            class="block text-sm font-medium text-gray-700 mb-1">Name</label
+          >
+          <input
+            type="text"
+            id="contact-name"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors bg-white text-gray-900"
+            placeholder="Your Name"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="contact-subject"
+            class="block text-sm font-medium text-gray-700 mb-1">Subject</label
+          >
+          <input
+            type="text"
+            id="contact-subject"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors bg-white text-gray-900"
+            placeholder="Reason for contacting"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="contact-body"
+            class="block text-sm font-medium text-gray-700 mb-1">Message</label
+          >
+          <textarea
+            id="contact-body"
+            rows="4"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none bg-white text-gray-900"
+            placeholder="How can we help you?"></textarea>
+        </div>
+      </div>
 
       <a
+        id="send-email-btn"
         href={`mailto:${SITE.email}`}
         class="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-full font-medium hover:bg-blue-700 transition-colors"
       >
@@ -111,3 +61,28 @@ import { SITE } from "../config";
     </div>
   </div>
 </Layout>
+
+<script define:vars={{ email: SITE.email }}>
+  const btn = document.getElementById("send-email-btn");
+  const nameInput = document.getElementById("contact-name");
+  const subjectInput = document.getElementById("contact-subject");
+  const bodyInput = document.getElementById("contact-body");
+
+  function updateMailto() {
+    if (!btn) return;
+    const name = nameInput?.value || "";
+    const subject = subjectInput?.value || "";
+    const body = bodyInput?.value || "";
+
+    const finalSubject = encodeURIComponent(
+      subject ? `[Contact] ${subject}` : "[Contact] Inquiry",
+    );
+    const finalBody = encodeURIComponent(`${body}\n\nFrom: ${name}`);
+
+    btn.href = `mailto:${email}?subject=${finalSubject}&body=${finalBody}`;
+  }
+
+  [nameInput, subjectInput, bodyInput].forEach((el) => {
+    el?.addEventListener("input", updateMailto);
+  });
+</script>
