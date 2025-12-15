@@ -8,6 +8,6 @@ cover: "../../assets/placeholder.png"
 links:
   website: "https://doi.org/10.3390/biomimetics5020018"
 description: "Biomimicry for regenerative built environments: mapping design strategies for producing ecosystem services."
-featured: false
+featured: true
 ---
 Biomimicry for regenerative built environments: mapping design strategies for producing ecosystem services.

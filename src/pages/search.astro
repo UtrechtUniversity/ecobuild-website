@@ -41,6 +41,8 @@ async function walkDir(dirPath: string) {
         const name = getField("name") || "";
         const role = getField("role") || "";
         const authors = getField("authors") || "";
+        const webpage =
+          getField("website") || getField("url") || getField("link") || "";
         const body = raw
           .replace(/^---[\s\S]*?---\r?\n?/, "")
           .replace(/\r?\n/g, " ");
@@ -54,24 +56,31 @@ async function walkDir(dirPath: string) {
         let url = rel.replace(/\\/g, "/").replace(/\.mdx?$/, "");
         const collection = url.split("/")[1]; // e.g. "presentations" from "/presentations/item"
 
+        // Base path for deployment
+        const BASE_PATH = "/ecobuild-website";
+
         if (collection === "presentations") {
-          url = "/publications#presentations";
+          url = `${BASE_PATH}/publications#presentations`;
         } else if (collection === "publications") {
           const type = getField("type");
           if (
             type &&
             (type.includes("newspaper") || type.includes("Newspaper"))
           ) {
-            url = "/publications#newspapers";
+            url = `${BASE_PATH}/publications#newspapers`;
           } else {
-            url = "/publications#papers";
+            url = `${BASE_PATH}/publications#papers`;
           }
         } else if (collection === "softwares") {
-          url = "/publications#softwares";
+          url = `${BASE_PATH}/publications#softwares`;
         } else if (collection === "patents") {
-          url = "/publications#patents";
+          url = `${BASE_PATH}/publications#patents`;
         } else if (collection === "books") {
-          url = "/publications";
+          url = `${BASE_PATH}/publications`;
+        } else {
+          // Default handling for other pages (like /team/member)
+          // If 'rel' already starts with /, we append it to BASE_PATH
+          url = `${BASE_PATH}${url}`;
         }
 
         rawEntries.push({
@@ -81,6 +90,7 @@ async function walkDir(dirPath: string) {
           name,
           role,
           authors,
+          webpage,
           content: body,
           url,
         });
@@ -195,7 +205,9 @@ try {
                 const displayName = r.name || r.title || "";
                 const title = highlight(escapeHtml(displayName), q);
                 const snippet = highlight(
-                  escapeHtml(truncate(r.content || r.bio || "", 240)),
+                  escapeHtml(
+                    truncate(r.content || r.bio || r.webpage || "", 240),
+                  ),
                   q,
                 );
                 a.innerHTML =
@@ -231,6 +243,7 @@ try {
                   normalize(item.name || "").indexOf(q) !== -1 ||
                   normalize(item.role || "").indexOf(q) !== -1 ||
                   normalize(item.authors || "").indexOf(q) !== -1 ||
+                  normalize(item.webpage || "").indexOf(q) !== -1 ||
                   normalize(item.content || "").indexOf(q) !== -1
                 );
               }).slice(0, 50);

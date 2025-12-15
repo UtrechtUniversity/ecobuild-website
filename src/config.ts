@@ -21,6 +21,10 @@ export const SITE = {
   hero: {
     title: 'Data-driven nexus for sustainable building design',
     subtitle: 'EcoBuild - the largest evidence-based, open-access and open-source information platform focusing on ecological benefits of design strategies.',
+    subtitleLink: {
+      text: 'More about our research at Utrecht University.',
+      url: 'https://www.uu.nl/en/research/copernicus-institute-of-sustainable-development' // Placeholder URL, user can update
+    },
     action: 'View Publications', // Optional call to action text
     image: heroImage, // Hero image path
   },
@@ -38,7 +42,8 @@ export const SITE = {
 
   // Custom Pages (Appended after 'Join Us')
   customPages: [
-    { text: 'About', link: '/about', key: 'about' }
+    { text: 'About', link: '/about', key: 'about' },
+    { text: 'Tools', link: '/tool', key: 'tool' }
   ],
 
   // i18n Config

@@ -7,7 +7,7 @@ import { SITE } from "../config";
 import PartnerCard from "../components/PartnerCard.astro";
 
 const papers = (await getCollection("publications"))
-  .filter((p) => p.data.type === "paper" && p.data.featured)
+  .filter((p) => p.data.featured)
   .sort((a, b) => b.data.year - a.data.year)
   .slice(0, 3);
 
@@ -68,6 +68,19 @@ const partners = await getCollection("partners");
           class="mt-4 text-xl text-gray-300 sm:max-w-2xl md:text-2xl drop-shadow-md"
         >
           {SITE.hero.subtitle}
+          {
+            SITE.hero.subtitleLink && (
+              <span class="block mt-2 text-lg">
+                <a
+                  href={SITE.hero.subtitleLink.url}
+                  target="_blank"
+                  class="underline decoration-black-400 hover:text-blue-400 transition-colors"
+                >
+                  {SITE.hero.subtitleLink.text}
+                </a>
+              </span>
+            )
+          }
         </p>
         <div class="mt-10 flex gap-4">
           <a
@@ -118,7 +131,7 @@ const partners = await getCollection("partners");
           Selected Publications
         </h2>
         <a
-          href="/achievements"
+          href="/ecobuild-website/publications"
           class="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 group"
         >
           <span data-i18n-key="section.viewAll">View all</span>
@@ -134,7 +147,7 @@ const partners = await getCollection("partners");
             const link =
               paper.data.links?.website ||
               paper.data.links?.pdf ||
-              "/achievements";
+              "/ecobuild-website/publications";
             const isExternal = link.startsWith("http");
             return (
               <a
