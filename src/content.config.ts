@@ -8,7 +8,7 @@ const publications = defineCollection({
     authors: z.array(z.string()),
     year: z.number(),
     venue: z.string(),
-    type: z.enum(['paper', 'book', 'patent', 'software']).default('paper'),
+    type: z.enum(['paper', 'book', 'patent', 'software', 'journal', 'newspaper']).default('paper'),
     cover: image().optional(),
     doi: z.string().optional(),
     award: z.string().optional(),

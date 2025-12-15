@@ -12,12 +12,18 @@ import {
   BookOpen,
   CheckCircle,
   Clock,
+  Newspaper,
   FileInput,
+  ArrowRight,
 } from "lucide-react";
 
 // Fetch Collections
 const papers = (await getCollection("publications"))
-  .filter((p) => p.data.type === "paper")
+  .filter((p) => p.data.type === "paper" || p.data.type === "journal")
+  .sort((a, b) => b.data.year - a.data.year);
+
+const newspapers = (await getCollection("publications"))
+  .filter((p) => p.data.type === "newspaper")
   .sort((a, b) => b.data.year - a.data.year);
 const books = (await getCollection("books")).sort(
   (a, b) => b.data.year - a.data.year,
@@ -44,11 +50,11 @@ const sections = [
     count: papers.length,
   },
   {
-    id: "books",
-    title: "Book Chapters",
-    key: "achievements.books",
-    icon: Book,
-    count: books.length,
+    id: "newspapers",
+    title: "Newspaper Articles",
+    key: "achievements.newspapers",
+    icon: Newspaper,
+    count: newspapers.length,
   },
   {
     id: "softwares",
@@ -83,6 +89,44 @@ const sections = [
         property, and collective honors.
       </p>
     </div>
+
+    <!-- Scroll Script for Newspapers -->
+    <script is:inline>
+      function scrollNewspapers(direction) {
+        const container = document.getElementById("newspapers-scroll");
+        if (!container) return;
+        const scrollAmount = container.clientWidth * 0.75 * direction;
+        container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      }
+
+      function updateNewspaperArrows() {
+        const container = document.getElementById("newspapers-scroll");
+        if (!container) return;
+        const leftBtn = document.getElementById("news-left-btn");
+        const rightBtn = document.getElementById("news-right-btn");
+
+        if (leftBtn)
+          leftBtn.style.display =
+            container.scrollLeft > 10 ? "inline-flex" : "inline-flex"; // Always show for now to match user request/reference
+        // Simple check for end of scroll
+        if (rightBtn)
+          rightBtn.style.display =
+            Math.ceil(container.scrollLeft + container.clientWidth) >=
+            container.scrollWidth - 10
+              ? "inline-flex" // Keep visible
+              : "inline-flex";
+      }
+
+      if (typeof window !== "undefined") {
+        window.addEventListener("load", updateNewspaperArrows);
+        window.addEventListener("resize", updateNewspaperArrows);
+        // Also update on scroll
+        const container = document.getElementById("newspapers-scroll");
+        if (container) {
+          container.addEventListener("scroll", updateNewspaperArrows);
+        }
+      }
+    </script>
 
     <!-- Navigation Pills -->
     <div
@@ -131,29 +175,63 @@ const sections = [
         </div>
       </section>
 
-      <!-- Books -->
-      <section id="books" class="scroll-mt-24">
+      <!-- Newspapers -->
+      <section id="newspapers" class="scroll-mt-24">
         <div class="flex items-center gap-3 mb-8">
-          <Book className="w-8 h-8 text-blue-600" />
+          <Newspaper className="w-8 h-8 text-blue-600" />
           <h2
             class="text-3xl font-bold text-gray-900"
-            data-i18n-key="achievements.books"
+            data-i18n-key="achievements.newspapers"
           >
-            Book Chapters
+            Newspaper Articles
           </h2>
         </div>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {books.map((book) => <BookItem entry={book} />)}
-          {
-            books.length === 0 && (
-              <p
-                class="text-gray-500 italic"
-                data-i18n-key="achievements.noBooks"
-              >
-                No book chapters listed yet.
-              </p>
-            )
-          }
+
+        <div class="relative group/slider">
+          <!-- Left / Right buttons -->
+          <button
+            id="news-left-btn"
+            aria-label="Scroll left"
+            type="button"
+            onclick="scrollNewspapers(-1)"
+            class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden md:inline-flex cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
+          >
+            <ArrowRight className="w-5 h-5 rotate-180" />
+          </button>
+          <button
+            id="news-right-btn"
+            aria-label="Scroll right"
+            type="button"
+            onclick="scrollNewspapers(1)"
+            class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden md:inline-flex cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
+          >
+            <ArrowRight className="w-5 h-5" />
+          </button>
+
+          <div
+            id="newspapers-scroll"
+            class="flex gap-6 overflow-x-auto scroll-smooth pb-4 px-1 -mx-1 snap-x snap-mandatory"
+          >
+            {
+              newspapers.map((paper) => (
+                <div class="w-[280px] sm:w-[300px] md:w-[320px] flex-shrink-0 snap-center">
+                  <BookItem entry={paper} />
+                </div>
+              ))
+            }
+            {
+              newspapers.length === 0 && (
+                <div class="w-full">
+                  <p
+                    class="text-gray-500 italic"
+                    data-i18n-key="achievements.noNewspapers"
+                  >
+                    No newspaper articles listed yet.
+                  </p>
+                </div>
+              )
+            }
+          </div>
         </div>
       </section>
 
