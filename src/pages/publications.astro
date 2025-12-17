@@ -63,13 +63,14 @@ const sections = [
     icon: Newspaper,
     count: newspapers.length,
   },
-  {
-    id: "softwares",
-    title: "Software Copyrights",
-    key: "achievements.softwares",
-    icon: FileCode,
-    count: softwares.length,
-  },
+  //Software Copyrights section removed until further notice
+  // {
+  //   id: "softwares",
+  //   title: "Software Copyrights",
+  //   key: "achievements.softwares",
+  //   icon: FileCode,
+  //   count: softwares.length,
+  // },
   {
     id: "presentations",
     title: "Conferences & Presentations",
@@ -89,44 +90,6 @@ const sections = [
         property, and presentations.
       </p>
     </div>
-
-    <!-- Scroll Script for Newspapers -->
-    <script is:inline>
-      function scrollNewspapers(direction) {
-        const container = document.getElementById("newspapers-scroll");
-        if (!container) return;
-        const scrollAmount = container.clientWidth * 0.75 * direction;
-        container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-      }
-
-      function updateNewspaperArrows() {
-        const container = document.getElementById("newspapers-scroll");
-        if (!container) return;
-        const leftBtn = document.getElementById("news-left-btn");
-        const rightBtn = document.getElementById("news-right-btn");
-
-        if (leftBtn)
-          leftBtn.style.display =
-            container.scrollLeft > 10 ? "inline-flex" : "inline-flex"; // Always show for now to match user request/reference
-        // Simple check for end of scroll
-        if (rightBtn)
-          rightBtn.style.display =
-            Math.ceil(container.scrollLeft + container.clientWidth) >=
-            container.scrollWidth - 10
-              ? "inline-flex" // Keep visible
-              : "inline-flex";
-      }
-
-      if (typeof window !== "undefined") {
-        window.addEventListener("load", updateNewspaperArrows);
-        window.addEventListener("resize", updateNewspaperArrows);
-        // Also update on scroll
-        const container = document.getElementById("newspapers-scroll");
-        if (container) {
-          container.addEventListener("scroll", updateNewspaperArrows);
-        }
-      }
-    </script>
 
     <!-- Navigation Pills -->
     <div
@@ -187,56 +150,24 @@ const sections = [
           </h2>
         </div>
 
-        <div class="relative group/slider">
-          <!-- Left / Right buttons -->
-          <button
-            id="news-left-btn"
-            aria-label="Scroll left"
-            type="button"
-            onclick="scrollNewspapers(-1)"
-            class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden md:inline-flex cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
-          >
-            <ArrowRight className="w-5 h-5 rotate-180" />
-          </button>
-          <button
-            id="news-right-btn"
-            aria-label="Scroll right"
-            type="button"
-            onclick="scrollNewspapers(1)"
-            class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden md:inline-flex cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
-          >
-            <ArrowRight className="w-5 h-5" />
-          </button>
-
-          <div
-            id="newspapers-scroll"
-            class="flex gap-6 overflow-x-auto scroll-smooth pb-4 px-1 -mx-1 snap-x snap-mandatory"
-          >
-            {
-              newspapers.map((paper) => (
-                <div class="w-[280px] sm:w-[300px] md:w-[320px] flex-shrink-0 snap-center">
-                  <BookItem entry={paper} />
-                </div>
-              ))
-            }
-            {
-              newspapers.length === 0 && (
-                <div class="w-full">
-                  <p
-                    class="text-gray-500 italic"
-                    data-i18n-key="achievements.noNewspapers"
-                  >
-                    No newspaper articles listed yet.
-                  </p>
-                </div>
-              )
-            }
-          </div>
+        <div class="grid gap-6">
+          {newspapers.map((paper) => <PublicationItem entry={paper} />)}
+          {
+            newspapers.length === 0 && (
+              <p
+                class="text-gray-500 italic"
+                data-i18n-key="achievements.noNewspapers"
+              >
+                No newspaper articles listed yet.
+              </p>
+            )
+          }
         </div>
       </section>
 
+      <!-- Section removed until further notice -->
       <!-- Softwares -->
-      <section id="softwares" class="scroll-mt-24">
+      <!-- <section id="softwares" class="scroll-mt-24">
         <div class="flex items-center gap-3 mb-8">
           <FileCode className="w-8 h-8 text-blue-600" />
           <h2
@@ -294,7 +225,7 @@ const sections = [
             )
           }
         </div>
-      </section>
+      </section> -->
 
       <!-- Presentations -->
       <section id="presentations" class="scroll-mt-24">
@@ -309,8 +240,31 @@ const sections = [
         </div>
 
         <!-- Presentations Group -->
-        <div class="mb-8 overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div class="flex gap-4">
+        <div class="mb-8 relative group/slider">
+          <!-- Left / Right buttons -->
+          <button
+            id="pres-left-btn"
+            aria-label="Scroll left"
+            type="button"
+            onclick="scrollContainer('presentations-scroll', -1)"
+            class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
+          >
+            <ArrowRight className="w-5 h-5 rotate-180" />
+          </button>
+          <button
+            id="pres-right-btn"
+            aria-label="Scroll right"
+            type="button"
+            onclick="scrollContainer('presentations-scroll', 1)"
+            class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
+          >
+            <ArrowRight className="w-5 h-5" />
+          </button>
+
+          <div
+            id="presentations-scroll"
+            class="overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 flex gap-4 scroll-smooth hide-scrollbar"
+          >
             <!-- Label Card -->
             <div
               class="flex-shrink-0 w-[200px] sm:w-[220px] rounded-xl bg-white text-gray-900 p-6 flex items-center justify-center shadow-md border border-gray-100"
@@ -329,8 +283,31 @@ const sections = [
         </div>
 
         <!-- Conferences Group -->
-        <div class="mb-8 overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div class="flex gap-4">
+        <div class="mb-8 relative group/slider">
+          <!-- Left / Right buttons -->
+          <button
+            id="conf-left-btn"
+            aria-label="Scroll left"
+            type="button"
+            onclick="scrollContainer('conferences-scroll', -1)"
+            class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
+          >
+            <ArrowRight className="w-5 h-5 rotate-180" />
+          </button>
+          <button
+            id="conf-right-btn"
+            aria-label="Scroll right"
+            type="button"
+            onclick="scrollContainer('conferences-scroll', 1)"
+            class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
+          >
+            <ArrowRight className="w-5 h-5" />
+          </button>
+
+          <div
+            id="conferences-scroll"
+            class="overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 flex gap-4 scroll-smooth hide-scrollbar"
+          >
             <!-- Label Card -->
             <div
               class="flex-shrink-0 w-[200px] sm:w-[220px] rounded-xl bg-white text-gray-900 p-6 flex items-center justify-center shadow-md border border-gray-100"
@@ -361,4 +338,62 @@ const sections = [
       </section>
     </div>
   </div>
+
+  <!-- Scroll Script -->
+  <script is:inline>
+    function scrollContainer(id, direction) {
+      const container = document.getElementById(id);
+      if (!container) return;
+      const scrollAmount = container.clientWidth * 0.75 * direction;
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+
+    function updateArrows(containerId, leftBtnId, rightBtnId) {
+      const container = document.getElementById(containerId);
+      const leftBtn = document.getElementById(leftBtnId);
+      const rightBtn = document.getElementById(rightBtnId);
+
+      if (!container || !leftBtn || !rightBtn) return;
+
+      leftBtn.style.display =
+        container.scrollLeft > 10 ? "inline-flex" : "none";
+
+      // Check if scrolled to end
+      const isAtEnd =
+        Math.ceil(container.scrollLeft + container.clientWidth) >=
+        container.scrollWidth - 10;
+      rightBtn.style.display = isAtEnd ? "none" : "inline-flex";
+    }
+
+    function setupScrollListener(containerId, leftBtnId, rightBtnId) {
+      const container = document.getElementById(containerId);
+      if (container) {
+        // Initial check
+        updateArrows(containerId, leftBtnId, rightBtnId);
+        // Scroll listener
+        container.addEventListener("scroll", () =>
+          updateArrows(containerId, leftBtnId, rightBtnId),
+        );
+        // Resize listener
+        window.addEventListener("resize", () =>
+          updateArrows(containerId, leftBtnId, rightBtnId),
+        );
+      }
+    }
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("load", () => {
+        setupScrollListener(
+          "presentations-scroll",
+          "pres-left-btn",
+          "pres-right-btn",
+        );
+        setupScrollListener(
+          "conferences-scroll",
+          "conf-left-btn",
+          "conf-right-btn",
+        );
+      });
+    }
+  </script>
 </Layout>

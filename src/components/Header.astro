@@ -41,11 +41,11 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
     <div class="flex justify-between items-center h-16">
       <!-- Logo & Name -->
       <div class="flex items-center gap-3">
-        <a href="/ecobuild-website/" class="flex items-center gap-2 group">
+        <a href="/ecobuild/" class="flex items-center gap-2 group">
           {
             LOGO_IMAGE.enable && SITE.logo && (
               <img
-                src={`/ecobuild-website${SITE.logo}`}
+                src={`/ecobuild${SITE.logo}`}
                 alt="Logo"
                 class="h-8 w-8 object-contain"
               />
@@ -75,7 +75,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
             if (item.key === "search") {
               return (
                 <a
-                  href={`/ecobuild-website${item.link}`}
+                  href={`/ecobuild${item.link}`}
                   class="p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-full transition-colors"
                   aria-label={item.text}
                 >
@@ -85,7 +85,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
             }
             return (
               <a
-                href={`/ecobuild-website${item.link}`}
+                href={`/ecobuild${item.link}`}
                 class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
                 data-i18n-key={`nav.${item.key}`}
               >
@@ -100,7 +100,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
           customPages &&
             customPages.map((item) => (
               <a
-                href={`/ecobuild-website${item.link}`}
+                href={`/ecobuild${item.link}`}
                 class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
                 data-i18n-key={item.key}
               >
@@ -167,7 +167,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
       {
         nav.map((item) => (
           <a
-            href={`/ecobuild-website${item.link}`}
+            href={`/ecobuild${item.link}`}
             class="flex items-center justify-between w-full py-4 px-4 text-lg font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all border-b border-gray-100 last:border-0"
             data-i18n-key={`nav.${item.key}`}
             onclick="window.closeMobileMenu()"
@@ -183,7 +183,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
         customPages &&
           customPages.map((item) => (
             <a
-              href={`/ecobuild-website${item.link}`}
+              href={`/ecobuild${item.link}`}
               class="flex items-center justify-between w-full py-4 px-4 text-lg font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all border-b border-gray-100 last:border-0"
               data-i18n-key={item.key}
               onclick="window.closeMobileMenu()"

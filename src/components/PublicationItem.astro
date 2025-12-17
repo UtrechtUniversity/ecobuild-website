@@ -25,7 +25,7 @@ const { title, authors, year, venue, links, award, badges, type, cover } =
 // Determine icon based on type (fallback for when no image is shown)
 const PublicationIcon =
   type === "journal" ? ScrollText : type === "newspaper" ? Newspaper : FileText;
-const showImage = type === "newspaper" && cover;
+const showImage = false;
 
 const iconMap: Record<string, any> = {
   pdf: FileText,

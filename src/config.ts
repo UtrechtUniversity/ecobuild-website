@@ -15,7 +15,7 @@ export const SITE = {
   university: 'Utrecht University',
   logo: '/assets/Utrecht_University_logo.png', // Logo path
   avatar: '/assets/Utrecht_University_logo.png', // Avatar for SEO/Schema
-  email: 'contact@placeholder.edu', // Contact email for Join Us page
+  email: 'k.hecht@uu.nl', // Contact email for Join Us page
 
   // Hero Section (Home Page) - Main content does not need to be translated for 8 languages by default
   hero: {
@@ -33,9 +33,9 @@ export const SITE = {
   nav: [
     { text: 'Home', link: '/', key: 'home' },
     { text: 'Publications', link: '/publications', key: 'publications' },
-    { text: 'Success Stories', link: '/success-stories', key: 'success-stories' },
+    //{ text: 'Success Stories', link: '/success-stories', key: 'success-stories' },
     { text: 'Team', link: '/team', key: 'team' },
-    { text: 'Activities', link: '/activities', key: 'activities' },
+    //{ text: 'Activities', link: '/activities', key: 'activities' },
     { text: 'Contact Us', link: '/contact', key: 'contact' },
     { text: 'Search', link: '/search', key: 'search' },
   ],
