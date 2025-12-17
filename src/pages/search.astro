@@ -3,135 +3,8 @@ import Layout from "../layouts/Layout.astro";
 
 export const prerender = true;
 
-import fs from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const rawEntries: any[] = [];
-// Base path for deployment
-const BASE_PATH = "/ecobuild";
-
-// Define allowed collections
-const ALLOWED_COLLECTIONS = [
-  "publications",
-  "presentations",
-  "partners",
-  "team",
-  "softwares",
-  "activities",
-];
-
-async function walkDir(dirPath: string) {
-  let dirents;
-  try {
-    dirents = await fs.readdir(dirPath, { withFileTypes: true });
-  } catch (e) {
-    // Directory might not exist (e.g. if no partners yet), just ignore
-    return;
-  }
-
-  for (const dirent of dirents) {
-    const childPath = path.join(dirPath, dirent.name);
-    if (dirent.isDirectory()) {
-      await walkDir(childPath);
-    } else if (dirent.isFile() && /\.mdx?$/.test(dirent.name)) {
-      try {
-        const raw = await fs.readFile(childPath, "utf-8");
-        const fmMatch = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-        const fm = fmMatch ? fmMatch[1] : "";
-        const getField = (name: string) => {
-          const re = new RegExp(
-            name + ":\\s*(?:'([^']*)'|\"([^\"]*)\"|([^\\n]+))",
-          );
-          const m = fm.match(re);
-          if (!m) return "";
-          return (m[1] || m[2] || m[3] || "").trim();
-        };
-        const title = getField("title") || getField("name") || "";
-        const bio = getField("bio") || "";
-        const description = getField("description") || "";
-        const name = getField("name") || "";
-        const role = getField("role") || "";
-        const authors = getField("authors") || "";
-        const webpage =
-          getField("website") || getField("url") || getField("link") || "";
-        const body = raw
-          .replace(/^---[\s\S]*?---\r?\n?/, "")
-          .replace(/\r?\n/g, " ");
-
-        // Determine collection name from path relative to src/content
-        // e.g. .../src/content/publications/item.md -> publications
-        const idx = childPath.indexOf(path.join("src", "content"));
-        let url = "";
-
-        if (idx !== -1) {
-          const rel = childPath.slice(idx + path.join("src", "content").length);
-          const parts = rel.split(path.sep).filter((p) => p); // Remove empty strings
-          const collection = parts[0];
-          const slug = rel.replace(/\\/g, "/").replace(/\.mdx?$/, "");
-
-          if (collection === "presentations") {
-            url = `${BASE_PATH}/publications#presentations`;
-          } else if (collection === "publications") {
-            const type = getField("type");
-            if (
-              type &&
-              (type.includes("newspaper") || type.includes("Newspaper"))
-            ) {
-              url = `${BASE_PATH}/publications#newspapers`;
-            } else {
-              url = `${BASE_PATH}/publications#papers`;
-            }
-          } else if (collection === "softwares") {
-            url = `${BASE_PATH}/publications#softwares`;
-          } else if (collection === "activities") {
-            // extract slug properly for activities
-            url = `${BASE_PATH}${slug}`;
-          } else {
-            // Default for team, partners, etc.
-            url = `${BASE_PATH}${slug}`;
-          }
-        } else {
-          // Fallback
-          url = `${BASE_PATH}/${dirent.name.replace(/\.mdx?$/, "")}`;
-        }
-
-        rawEntries.push({
-          title,
-          bio,
-          description,
-          name,
-          role,
-          authors,
-          webpage,
-          content: body,
-          url,
-        });
-      } catch (e) {
-        console.error("Failed to read file", childPath, e);
-      }
-    }
-  }
-}
-
-const contentRoot = fileURLToPath(new URL("../content/", import.meta.url));
-
-// Only walk allowed collections
-for (const collection of ALLOWED_COLLECTIONS) {
-  await walkDir(path.join(contentRoot, collection));
-}
-
-const SEARCH_INDEX = rawEntries;
-
-try {
-  await fs.writeFile(
-    new URL("../../public/search-index.json", import.meta.url),
-    JSON.stringify(SEARCH_INDEX),
-    "utf-8",
-  );
-} catch (e) {
-  console.error("Failed to write public/search-index.json", e);
-}
+// Get base path from environment for the client script
+const BASE_PATH = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Search">
@@ -165,8 +38,7 @@ try {
           No results.
         </div>
 
-        <script is:inline define:vars={{ SEARCH_INDEX, BASE_PATH }}>
-          window.__SEARCH_INDEX = SEARCH_INDEX;
+        <script is:inline define:vars={{ BASE_PATH }}>
           window.__BASE_PATH = BASE_PATH;
         </script>
 
