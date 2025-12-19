@@ -1,7 +1,7 @@
 ---
-title: "Future of Work Conference"
-date: "March 2025"
-type: "Presentation"
+title: "Presentation"
+date: 2025-03-05
+event: "Future of Work Conference"
 style: "presentation"
 order: 1
 ---

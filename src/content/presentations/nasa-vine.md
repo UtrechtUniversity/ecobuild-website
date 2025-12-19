@@ -1,7 +1,7 @@
 ---
-title: "NASA Virtual Interchange for Nature-inspired Exploration (VINE) Fall Biocene Workshop"
-date: "09-10-2020"
-type: "Presentation"
+title: "Presentation"
+date: 2020-10-09
+event: "NASA Virtual Interchange for Nature-inspired Exploration (VINE) Fall Biocene Workshop"
 style: "presentation"
 order: 4
 ---

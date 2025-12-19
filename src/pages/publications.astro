@@ -38,14 +38,11 @@ const patents = (await getCollection("patents")).sort(
 );
 
 const allPresentations = (await getCollection("presentations")).sort(
-  (a, b) => (a.data.order || 99) - (b.data.order || 99),
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 
 const presentations = allPresentations.filter(
-  (p) => p.data.style === "presentation",
-);
-const conferences = allPresentations.filter(
-  (p) => p.data.style === "conference",
+  (p) => p.data.style === "presentation" || p.data.style === "conference",
 );
 
 const sections = [
@@ -235,7 +232,7 @@ const sections = [
             class="text-3xl font-bold text-gray-900"
             data-i18n-key="achievements.presentations"
           >
-            Conferences & Presentations
+            Conferences, Presentations & Events
           </h2>
         </div>
 
@@ -265,12 +262,6 @@ const sections = [
             id="presentations-scroll"
             class="overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 flex gap-4 scroll-smooth hide-scrollbar"
           >
-            <!-- Label Card -->
-            <div
-              class="flex-shrink-0 w-[200px] sm:w-[220px] rounded-xl bg-white text-gray-900 p-6 flex items-center justify-center shadow-md border border-gray-100"
-            >
-              <h3 class="text-xl font-bold text-center">Presentations</h3>
-            </div>
             <!-- Items -->
             {
               presentations.map((item) => (
@@ -281,50 +272,6 @@ const sections = [
             }
           </div>
         </div>
-
-        <!-- Conferences Group -->
-        <div class="mb-8 relative group/slider">
-          <!-- Left / Right buttons -->
-          <button
-            id="conf-left-btn"
-            aria-label="Scroll left"
-            type="button"
-            onclick="scrollContainer('conferences-scroll', -1)"
-            class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
-          >
-            <ArrowRight className="w-5 h-5 rotate-180" />
-          </button>
-          <button
-            id="conf-right-btn"
-            aria-label="Scroll right"
-            type="button"
-            onclick="scrollContainer('conferences-scroll', 1)"
-            class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 rounded-full p-2 shadow-sm hover:shadow-md hidden cursor-pointer text-gray-600 hover:text-blue-600 transition-all"
-          >
-            <ArrowRight className="w-5 h-5" />
-          </button>
-
-          <div
-            id="conferences-scroll"
-            class="overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 flex gap-4 scroll-smooth hide-scrollbar"
-          >
-            <!-- Label Card -->
-            <div
-              class="flex-shrink-0 w-[200px] sm:w-[220px] rounded-xl bg-white text-gray-900 p-6 flex items-center justify-center shadow-md border border-gray-100"
-            >
-              <h3 class="text-xl font-bold text-center">Conferences</h3>
-            </div>
-            <!-- Items -->
-            {
-              conferences.map((item) => (
-                <div class="flex-shrink-0 w-[400px] sm:w-[420px]">
-                  <PresentationCard entry={item} />
-                </div>
-              ))
-            }
-          </div>
-        </div>
-
         {
           allPresentations.length === 0 && (
             <p
