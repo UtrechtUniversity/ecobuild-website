@@ -1,0 +1,80 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { FileText } from "lucide-react";
+---
+
+<Layout title="Ecosystem Services Map">
+    <div class="bg-gray-50 flex flex-col min-h-[calc(100vh-64px)]">
+        <div class="flex-grow w-full h-[80vh]">
+            <iframe
+                src="https://embed.kumu.io/0853bdea62a409d6dc7f00a636bc6457#ecosystem-services-in-urban-environments2503193"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                allowfullscreen
+                class="w-full h-full"></iframe>
+        </div>
+
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid gap-3">
+                <a
+                    href="/ecobuild/pdfs/How to use the Strategies for Urban Ecosystem Services Generation Map_20200922.pdf"
+                    target="_blank"
+                    class="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group"
+                >
+                    <FileText
+                        className="w-5 h-5 text-gray-400 group-hover:text-blue-600"
+                    />
+                    <div>
+                        <span class="font-medium text-gray-900 block mb-1"
+                            >Usage Instructions:</span
+                        >
+                        <span
+                            class="text-sm text-gray-600 group-hover:text-blue-700"
+                            >How to use the Strategies for Urban Ecosystem
+                            Services Generation</span
+                        >
+                    </div>
+                </a>
+
+                <a
+                    href="/ecobuild/pdfs/BSc_Thesis_Charles_Klijnman_5995272_finalreport.pdf"
+                    target="_blank"
+                    class="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group"
+                >
+                    <FileText
+                        className="w-5 h-5 text-gray-400 group-hover:text-blue-600"
+                    />
+                    <div>
+                        <span class="font-medium text-gray-900 block mb-1"
+                            >Source:</span
+                        >
+                        <span
+                            class="text-sm text-gray-600 group-hover:text-blue-700"
+                            >BSc Thesis Charles Klijnman</span
+                        >
+                    </div>
+                </a>
+
+                <a
+                    href="/ecobuild/pdfs/Documentation__DorusKeijzer_20250923.pdf"
+                    target="_blank"
+                    class="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group"
+                >
+                    <FileText
+                        className="w-5 h-5 text-gray-400 group-hover:text-blue-600"
+                    />
+                    <div>
+                        <span class="font-medium text-gray-900 block mb-1"
+                            >Documentation:</span
+                        >
+                        <span
+                            class="text-sm text-gray-600 group-hover:text-blue-700"
+                            >Dorus Keijzer</span
+                        >
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</Layout>

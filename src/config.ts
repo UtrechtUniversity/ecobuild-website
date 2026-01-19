@@ -43,7 +43,14 @@ export const SITE = {
 
   // Custom Pages (Appended after 'Join Us')
   customPages: [
-    { text: 'Tools', link: '/tool', key: 'tool' }
+    {
+      text: 'Tools',
+      key: 'tools',
+      dropdown: [
+        { text: 'Ecosystem Services Map', link: '/tool/ecosystem-map', key: 'ecosystem-map' },
+        { text: 'Sustainable Buildings Graph Exploration', link: '/tool/graph-explorer', key: 'graph-explorer' }
+      ]
+    }
   ],
 
   // i18n Config

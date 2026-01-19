@@ -1,7 +1,7 @@
 ---
 name: "Stefan Leon"
 role: "Student Assistant"
-title: ["Student Assistant"]
+title: ["Student Assistant", "Website Developer"]
 avatar: "../../assets/avatar-stefan-leon.jpg"
 email: "s.t.leon@uu.nl"
 linkedin: https://www.linkedin.com/in/stefan-leon-1b4b12243/
